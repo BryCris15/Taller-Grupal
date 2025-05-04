@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  servicio_b:
+    build:
+      context: ./servicio_b
+    container_name: servicio_b
+    ports:
+      - "5002:5002"
+    networks:
+      - distribuido
+
+  servicio_a:
+    build:
+      context: ./servicio_a
+    container_name: servicio_a
+    ports:
+      - "5001:5001"
+    depends_on:
+      - servicio_b
+    networks:
+      - distribuido
+
+networks:
+  distribuido:
+    driver: bridge
